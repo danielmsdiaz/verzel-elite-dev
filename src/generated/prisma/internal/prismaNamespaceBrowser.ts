@@ -92,6 +92,7 @@ export const EventScalarFieldEnum = {
   tmdbMovieId: 'tmdbMovieId',
   title: 'title',
   posterUrl: 'posterUrl',
+  genres: 'genres',
   venue: 'venue',
   room: 'room',
   startsAt: 'startsAt',

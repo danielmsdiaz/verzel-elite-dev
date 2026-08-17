@@ -2,6 +2,7 @@ import { CalendarDays, Film, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -12,14 +13,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-type MovieCardProps = {
+export type MovieCardProps = {
   id: string;
   title: string;
   posterUrl: string | null;
+  genres: string[];
   venue: string;
   room: string;
-  startsAt: Date;
+  startsAt: Date | string;
   priceCents: number;
+  className?: string;
 };
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
@@ -36,20 +39,30 @@ export function MovieCard({
   id,
   title,
   posterUrl,
+  genres,
   venue,
   room,
   startsAt,
   priceCents,
+  className,
 }: MovieCardProps) {
+  const eventDate =
+    typeof startsAt === "string" ? new Date(startsAt) : startsAt;
+
   return (
-    <Card className="group gap-0 py-0 transition duration-200 hover:shadow-lg">
+    <Card
+      className={cn(
+        "group gap-0 overflow-hidden border-2 border-zinc-950 py-0 shadow-[5px_5px_0_#d4d4d8] transition duration-200 hover:-translate-y-1 hover:shadow-[7px_7px_0_#18181b]",
+        className,
+      )}
+    >
       <div className="relative aspect-[2/3] overflow-hidden bg-muted">
         {posterUrl ? (
           <Image
             src={posterUrl}
             alt={`Pôster do filme ${title}`}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            sizes="300px"
             className="object-cover transition duration-300 group-hover:scale-105"
           />
         ) : (
@@ -70,13 +83,25 @@ export function MovieCard({
             {venue} · {room}
           </span>
         </CardDescription>
+        {genres.length > 0 ? (
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {genres.slice(0, 2).map((genre) => (
+              <span
+                key={genre}
+                className="rounded-full border border-zinc-300 px-2 py-0.5 text-[9px] font-bold tracking-wide uppercase"
+              >
+                {genre}
+              </span>
+            ))}
+          </div>
+        ) : null}
       </CardHeader>
 
       <CardContent className="pb-4">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <CalendarDays aria-hidden="true" className="size-4" />
-          <time dateTime={startsAt.toISOString()}>
-            {dateFormatter.format(startsAt)}
+          <time dateTime={eventDate.toISOString()}>
+            {dateFormatter.format(eventDate)}
           </time>
         </div>
       </CardContent>

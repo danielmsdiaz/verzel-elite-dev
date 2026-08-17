@@ -128,3 +128,15 @@
     @apply font-sans;
   }
 }
+
+@layer utilities {
+  .event-carousel {
+    scrollbar-color: #18181b #e4e4e7;
+    scrollbar-width: thin;
+  }
+
+  .event-carousel-card {
+    content-visibility: auto;
+    contain-intrinsic-size: 300px 620px;
+  }
+}

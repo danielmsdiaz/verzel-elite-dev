@@ -1,11 +1,17 @@
-import { MovieCard } from "@/components/movie-card";
+import { EventCatalog } from "@/components/event-catalog";
 import { SiteHeader } from "@/components/site-header";
 import { buttonVariants } from "@/components/ui/button";
 import { CrowdCanvas } from "@/components/ui/skiper-ui/skiper39";
-import { getPublishedEvents } from "@/server/events/queries";
+import {
+  getPublishedEventFilterOptions,
+  getPublishedEventPage,
+} from "@/server/events/queries";
 
 export default async function Home() {
-  const events = await getPublishedEvents();
+  const [eventPage, filterOptions] = await Promise.all([
+    getPublishedEventPage(),
+    getPublishedEventFilterOptions(),
+  ]);
 
   return (
     <main className="flex-1">
@@ -54,7 +60,7 @@ export default async function Home() {
 
       <section
         id="eventos"
-        className="mx-auto w-full max-w-7xl scroll-mt-6 px-4 py-12 sm:px-6 lg:px-8 lg:py-16"
+        className="mx-auto w-full max-w-[1440px] scroll-mt-6 px-4 py-12 sm:px-6 lg:px-8 lg:py-16"
       >
         <div className="mb-8 space-y-2">
           <h2 className="text-3xl font-semibold tracking-tight">
@@ -65,12 +71,17 @@ export default async function Home() {
           </p>
         </div>
 
-        {events.length > 0 ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {events.map((event) => (
-              <MovieCard key={event.id} {...event} />
-            ))}
-          </div>
+        {eventPage.events.length > 0 ? (
+          <EventCatalog
+            initialEvents={eventPage.events.map((event) => ({
+              ...event,
+              startsAt: event.startsAt.toISOString(),
+            }))}
+            initialNextCursor={eventPage.nextCursor}
+            initialTotalCount={eventPage.totalCount ?? eventPage.events.length}
+            venues={filterOptions.venues}
+            genres={filterOptions.genres}
+          />
         ) : (
           <div className="rounded-xl border border-dashed p-10 text-center text-muted-foreground">
             Nenhum evento disponível no momento.

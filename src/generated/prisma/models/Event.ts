@@ -77,6 +77,7 @@ export type EventCountAggregateOutputType = {
   tmdbMovieId: number
   title: number
   posterUrl: number
+  genres: number
   venue: number
   room: number
   startsAt: number
@@ -139,6 +140,7 @@ export type EventCountAggregateInputType = {
   tmdbMovieId?: true
   title?: true
   posterUrl?: true
+  genres?: true
   venue?: true
   room?: true
   startsAt?: true
@@ -242,6 +244,7 @@ export type EventGroupByOutputType = {
   tmdbMovieId: number
   title: string
   posterUrl: string | null
+  genres: string[]
   venue: string
   room: string
   startsAt: Date
@@ -281,6 +284,7 @@ export type EventWhereInput = {
   tmdbMovieId?: Prisma.IntFilter<"Event"> | number
   title?: Prisma.StringFilter<"Event"> | string
   posterUrl?: Prisma.StringNullableFilter<"Event"> | string | null
+  genres?: Prisma.StringNullableListFilter<"Event">
   venue?: Prisma.StringFilter<"Event"> | string
   room?: Prisma.StringFilter<"Event"> | string
   startsAt?: Prisma.DateTimeFilter<"Event"> | Date | string
@@ -299,6 +303,7 @@ export type EventOrderByWithRelationInput = {
   tmdbMovieId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   posterUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  genres?: Prisma.SortOrder
   venue?: Prisma.SortOrder
   room?: Prisma.SortOrder
   startsAt?: Prisma.SortOrder
@@ -320,6 +325,7 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   tmdbMovieId?: Prisma.IntFilter<"Event"> | number
   title?: Prisma.StringFilter<"Event"> | string
   posterUrl?: Prisma.StringNullableFilter<"Event"> | string | null
+  genres?: Prisma.StringNullableListFilter<"Event">
   venue?: Prisma.StringFilter<"Event"> | string
   room?: Prisma.StringFilter<"Event"> | string
   startsAt?: Prisma.DateTimeFilter<"Event"> | Date | string
@@ -338,6 +344,7 @@ export type EventOrderByWithAggregationInput = {
   tmdbMovieId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   posterUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  genres?: Prisma.SortOrder
   venue?: Prisma.SortOrder
   room?: Prisma.SortOrder
   startsAt?: Prisma.SortOrder
@@ -362,6 +369,7 @@ export type EventScalarWhereWithAggregatesInput = {
   tmdbMovieId?: Prisma.IntWithAggregatesFilter<"Event"> | number
   title?: Prisma.StringWithAggregatesFilter<"Event"> | string
   posterUrl?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
+  genres?: Prisma.StringNullableListFilter<"Event">
   venue?: Prisma.StringWithAggregatesFilter<"Event"> | string
   room?: Prisma.StringWithAggregatesFilter<"Event"> | string
   startsAt?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
@@ -377,6 +385,7 @@ export type EventCreateInput = {
   tmdbMovieId: number
   title: string
   posterUrl?: string | null
+  genres?: Prisma.EventCreategenresInput | string[]
   venue: string
   room: string
   startsAt: Date | string
@@ -395,6 +404,7 @@ export type EventUncheckedCreateInput = {
   tmdbMovieId: number
   title: string
   posterUrl?: string | null
+  genres?: Prisma.EventCreategenresInput | string[]
   venue: string
   room: string
   startsAt: Date | string
@@ -411,6 +421,7 @@ export type EventUpdateInput = {
   tmdbMovieId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   posterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genres?: Prisma.EventUpdategenresInput | string[]
   venue?: Prisma.StringFieldUpdateOperationsInput | string
   room?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -429,6 +440,7 @@ export type EventUncheckedUpdateInput = {
   tmdbMovieId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   posterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genres?: Prisma.EventUpdategenresInput | string[]
   venue?: Prisma.StringFieldUpdateOperationsInput | string
   room?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -446,6 +458,7 @@ export type EventCreateManyInput = {
   tmdbMovieId: number
   title: string
   posterUrl?: string | null
+  genres?: Prisma.EventCreategenresInput | string[]
   venue: string
   room: string
   startsAt: Date | string
@@ -461,6 +474,7 @@ export type EventUpdateManyMutationInput = {
   tmdbMovieId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   posterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genres?: Prisma.EventUpdategenresInput | string[]
   venue?: Prisma.StringFieldUpdateOperationsInput | string
   room?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -477,6 +491,7 @@ export type EventUncheckedUpdateManyInput = {
   tmdbMovieId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   posterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genres?: Prisma.EventUpdategenresInput | string[]
   venue?: Prisma.StringFieldUpdateOperationsInput | string
   room?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -496,6 +511,14 @@ export type EventOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type EventCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   organizerId?: Prisma.SortOrder
@@ -503,6 +526,7 @@ export type EventCountOrderByAggregateInput = {
   tmdbMovieId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   posterUrl?: Prisma.SortOrder
+  genres?: Prisma.SortOrder
   venue?: Prisma.SortOrder
   room?: Prisma.SortOrder
   startsAt?: Prisma.SortOrder
@@ -603,6 +627,10 @@ export type EventUncheckedUpdateManyWithoutOrganizerNestedInput = {
   deleteMany?: Prisma.EventScalarWhereInput | Prisma.EventScalarWhereInput[]
 }
 
+export type EventCreategenresInput = {
+  set: string[]
+}
+
 export type EnumEventStatusFieldUpdateOperationsInput = {
   set?: $Enums.EventStatus
 }
@@ -617,6 +645,11 @@ export type IntFieldUpdateOperationsInput = {
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type EventUpdategenresInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type EventCreateNestedOneWithoutSeatsInput = {
@@ -639,6 +672,7 @@ export type EventCreateWithoutOrganizerInput = {
   tmdbMovieId: number
   title: string
   posterUrl?: string | null
+  genres?: Prisma.EventCreategenresInput | string[]
   venue: string
   room: string
   startsAt: Date | string
@@ -655,6 +689,7 @@ export type EventUncheckedCreateWithoutOrganizerInput = {
   tmdbMovieId: number
   title: string
   posterUrl?: string | null
+  genres?: Prisma.EventCreategenresInput | string[]
   venue: string
   room: string
   startsAt: Date | string
@@ -701,6 +736,7 @@ export type EventScalarWhereInput = {
   tmdbMovieId?: Prisma.IntFilter<"Event"> | number
   title?: Prisma.StringFilter<"Event"> | string
   posterUrl?: Prisma.StringNullableFilter<"Event"> | string | null
+  genres?: Prisma.StringNullableListFilter<"Event">
   venue?: Prisma.StringFilter<"Event"> | string
   room?: Prisma.StringFilter<"Event"> | string
   startsAt?: Prisma.DateTimeFilter<"Event"> | Date | string
@@ -716,6 +752,7 @@ export type EventCreateWithoutSeatsInput = {
   tmdbMovieId: number
   title: string
   posterUrl?: string | null
+  genres?: Prisma.EventCreategenresInput | string[]
   venue: string
   room: string
   startsAt: Date | string
@@ -733,6 +770,7 @@ export type EventUncheckedCreateWithoutSeatsInput = {
   tmdbMovieId: number
   title: string
   posterUrl?: string | null
+  genres?: Prisma.EventCreategenresInput | string[]
   venue: string
   room: string
   startsAt: Date | string
@@ -764,6 +802,7 @@ export type EventUpdateWithoutSeatsInput = {
   tmdbMovieId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   posterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genres?: Prisma.EventUpdategenresInput | string[]
   venue?: Prisma.StringFieldUpdateOperationsInput | string
   room?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -781,6 +820,7 @@ export type EventUncheckedUpdateWithoutSeatsInput = {
   tmdbMovieId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   posterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genres?: Prisma.EventUpdategenresInput | string[]
   venue?: Prisma.StringFieldUpdateOperationsInput | string
   room?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -796,6 +836,7 @@ export type EventCreateManyOrganizerInput = {
   tmdbMovieId: number
   title: string
   posterUrl?: string | null
+  genres?: Prisma.EventCreategenresInput | string[]
   venue: string
   room: string
   startsAt: Date | string
@@ -811,6 +852,7 @@ export type EventUpdateWithoutOrganizerInput = {
   tmdbMovieId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   posterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genres?: Prisma.EventUpdategenresInput | string[]
   venue?: Prisma.StringFieldUpdateOperationsInput | string
   room?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -827,6 +869,7 @@ export type EventUncheckedUpdateWithoutOrganizerInput = {
   tmdbMovieId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   posterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genres?: Prisma.EventUpdategenresInput | string[]
   venue?: Prisma.StringFieldUpdateOperationsInput | string
   room?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -843,6 +886,7 @@ export type EventUncheckedUpdateManyWithoutOrganizerInput = {
   tmdbMovieId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   posterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genres?: Prisma.EventUpdategenresInput | string[]
   venue?: Prisma.StringFieldUpdateOperationsInput | string
   room?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -890,6 +934,7 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   tmdbMovieId?: boolean
   title?: boolean
   posterUrl?: boolean
+  genres?: boolean
   venue?: boolean
   room?: boolean
   startsAt?: boolean
@@ -909,6 +954,7 @@ export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   tmdbMovieId?: boolean
   title?: boolean
   posterUrl?: boolean
+  genres?: boolean
   venue?: boolean
   room?: boolean
   startsAt?: boolean
@@ -926,6 +972,7 @@ export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   tmdbMovieId?: boolean
   title?: boolean
   posterUrl?: boolean
+  genres?: boolean
   venue?: boolean
   room?: boolean
   startsAt?: boolean
@@ -943,6 +990,7 @@ export type EventSelectScalar = {
   tmdbMovieId?: boolean
   title?: boolean
   posterUrl?: boolean
+  genres?: boolean
   venue?: boolean
   room?: boolean
   startsAt?: boolean
@@ -952,7 +1000,7 @@ export type EventSelectScalar = {
   updatedAt?: boolean
 }
 
-export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizerId" | "status" | "tmdbMovieId" | "title" | "posterUrl" | "venue" | "room" | "startsAt" | "capacity" | "priceCents" | "createdAt" | "updatedAt", ExtArgs["result"]["event"]>
+export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizerId" | "status" | "tmdbMovieId" | "title" | "posterUrl" | "genres" | "venue" | "room" | "startsAt" | "capacity" | "priceCents" | "createdAt" | "updatedAt", ExtArgs["result"]["event"]>
 export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organizer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   seats?: boolean | Prisma.Event$seatsArgs<ExtArgs>
@@ -978,6 +1026,7 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     tmdbMovieId: number
     title: string
     posterUrl: string | null
+    genres: string[]
     venue: string
     room: string
     startsAt: Date
@@ -1416,6 +1465,7 @@ export interface EventFieldRefs {
   readonly tmdbMovieId: Prisma.FieldRef<"Event", 'Int'>
   readonly title: Prisma.FieldRef<"Event", 'String'>
   readonly posterUrl: Prisma.FieldRef<"Event", 'String'>
+  readonly genres: Prisma.FieldRef<"Event", 'String[]'>
   readonly venue: Prisma.FieldRef<"Event", 'String'>
   readonly room: Prisma.FieldRef<"Event", 'String'>
   readonly startsAt: Prisma.FieldRef<"Event", 'DateTime'>

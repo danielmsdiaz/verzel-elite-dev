@@ -45,6 +45,7 @@ model Event {
   tmdbMovieId Int
   title       String
   posterUrl   String?
+  genres      String[] @default([])
 
   venue      String
   room       String
