@@ -12,3 +12,21 @@ export async function getPublishedEvents() {
     },
   });
 }
+
+export async function getEventById(eventId: string) {
+  return prisma.event.findFirst({
+    where: {
+      id: eventId,
+      status: "PUBLISHED",
+    },
+    include: {
+      seats: {
+        orderBy: [{ row: "asc" }, { number: "asc" }],
+      },
+    },
+  });
+}
+
+export type EventDetails = NonNullable<
+  Awaited<ReturnType<typeof getEventById>>
+>;
