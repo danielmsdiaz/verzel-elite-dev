@@ -1,4 +1,5 @@
 import { MovieCard } from "@/components/movie-card";
+import { SiteHeader } from "@/components/site-header";
 import { buttonVariants } from "@/components/ui/button";
 import { CrowdCanvas } from "@/components/ui/skiper-ui/skiper39";
 import { getPublishedEvents } from "@/server/events/queries";
@@ -9,6 +10,8 @@ export default async function Home() {
   return (
     <main className="flex-1">
       <section className="relative isolate min-h-svh overflow-hidden border-b bg-white text-black">
+        <SiteHeader />
+
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 opacity-75"
@@ -20,7 +23,7 @@ export default async function Home() {
           />
         </div>
 
-        <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-7xl flex-col items-center px-4 pt-16 text-center sm:px-6 sm:pt-20 lg:px-8">
+        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-72px)] w-full max-w-7xl flex-col items-center px-4 pt-14 text-center sm:px-6 sm:pt-18 lg:px-8">
           <span className="mb-5 rounded-full border border-black/10 bg-white/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] backdrop-blur">
             Sessões especiais
           </span>
