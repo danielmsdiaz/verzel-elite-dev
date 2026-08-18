@@ -278,6 +278,7 @@ export type CheckoutOrderWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"CheckoutOrder"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
+  tickets?: Prisma.TicketListRelationFilter
 }
 
 export type CheckoutOrderOrderByWithRelationInput = {
@@ -296,6 +297,7 @@ export type CheckoutOrderOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   event?: Prisma.EventOrderByWithRelationInput
+  tickets?: Prisma.TicketOrderByRelationAggregateInput
 }
 
 export type CheckoutOrderWhereUniqueInput = Prisma.AtLeast<{
@@ -317,6 +319,7 @@ export type CheckoutOrderWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"CheckoutOrder"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
+  tickets?: Prisma.TicketListRelationFilter
 }, "id" | "stripeCheckoutSessionId">
 
 export type CheckoutOrderOrderByWithAggregationInput = {
@@ -373,6 +376,7 @@ export type CheckoutOrderCreateInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutCheckoutOrdersInput
   event: Prisma.EventCreateNestedOneWithoutCheckoutOrdersInput
+  tickets?: Prisma.TicketCreateNestedManyWithoutOrderInput
 }
 
 export type CheckoutOrderUncheckedCreateInput = {
@@ -389,6 +393,7 @@ export type CheckoutOrderUncheckedCreateInput = {
   refundedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tickets?: Prisma.TicketUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type CheckoutOrderUpdateInput = {
@@ -405,6 +410,7 @@ export type CheckoutOrderUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutCheckoutOrdersNestedInput
   event?: Prisma.EventUpdateOneRequiredWithoutCheckoutOrdersNestedInput
+  tickets?: Prisma.TicketUpdateManyWithoutOrderNestedInput
 }
 
 export type CheckoutOrderUncheckedUpdateInput = {
@@ -421,6 +427,7 @@ export type CheckoutOrderUncheckedUpdateInput = {
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tickets?: Prisma.TicketUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type CheckoutOrderCreateManyInput = {
@@ -533,6 +540,11 @@ export type CheckoutOrderSumOrderByAggregateInput = {
   amountCents?: Prisma.SortOrder
 }
 
+export type CheckoutOrderScalarRelationFilter = {
+  is?: Prisma.CheckoutOrderWhereInput
+  isNot?: Prisma.CheckoutOrderWhereInput
+}
+
 export type CheckoutOrderCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.CheckoutOrderCreateWithoutUserInput, Prisma.CheckoutOrderUncheckedCreateWithoutUserInput> | Prisma.CheckoutOrderCreateWithoutUserInput[] | Prisma.CheckoutOrderUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.CheckoutOrderCreateOrConnectWithoutUserInput | Prisma.CheckoutOrderCreateOrConnectWithoutUserInput[]
@@ -634,6 +646,20 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type CheckoutOrderCreateNestedOneWithoutTicketsInput = {
+  create?: Prisma.XOR<Prisma.CheckoutOrderCreateWithoutTicketsInput, Prisma.CheckoutOrderUncheckedCreateWithoutTicketsInput>
+  connectOrCreate?: Prisma.CheckoutOrderCreateOrConnectWithoutTicketsInput
+  connect?: Prisma.CheckoutOrderWhereUniqueInput
+}
+
+export type CheckoutOrderUpdateOneRequiredWithoutTicketsNestedInput = {
+  create?: Prisma.XOR<Prisma.CheckoutOrderCreateWithoutTicketsInput, Prisma.CheckoutOrderUncheckedCreateWithoutTicketsInput>
+  connectOrCreate?: Prisma.CheckoutOrderCreateOrConnectWithoutTicketsInput
+  upsert?: Prisma.CheckoutOrderUpsertWithoutTicketsInput
+  connect?: Prisma.CheckoutOrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CheckoutOrderUpdateToOneWithWhereWithoutTicketsInput, Prisma.CheckoutOrderUpdateWithoutTicketsInput>, Prisma.CheckoutOrderUncheckedUpdateWithoutTicketsInput>
+}
+
 export type CheckoutOrderCreateWithoutUserInput = {
   id?: string
   status?: $Enums.CheckoutOrderStatus
@@ -647,6 +673,7 @@ export type CheckoutOrderCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   event: Prisma.EventCreateNestedOneWithoutCheckoutOrdersInput
+  tickets?: Prisma.TicketCreateNestedManyWithoutOrderInput
 }
 
 export type CheckoutOrderUncheckedCreateWithoutUserInput = {
@@ -662,6 +689,7 @@ export type CheckoutOrderUncheckedCreateWithoutUserInput = {
   refundedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tickets?: Prisma.TicketUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type CheckoutOrderCreateOrConnectWithoutUserInput = {
@@ -722,6 +750,7 @@ export type CheckoutOrderCreateWithoutEventInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutCheckoutOrdersInput
+  tickets?: Prisma.TicketCreateNestedManyWithoutOrderInput
 }
 
 export type CheckoutOrderUncheckedCreateWithoutEventInput = {
@@ -737,6 +766,7 @@ export type CheckoutOrderUncheckedCreateWithoutEventInput = {
   refundedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tickets?: Prisma.TicketUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type CheckoutOrderCreateOrConnectWithoutEventInput = {
@@ -763,6 +793,86 @@ export type CheckoutOrderUpdateWithWhereUniqueWithoutEventInput = {
 export type CheckoutOrderUpdateManyWithWhereWithoutEventInput = {
   where: Prisma.CheckoutOrderScalarWhereInput
   data: Prisma.XOR<Prisma.CheckoutOrderUpdateManyMutationInput, Prisma.CheckoutOrderUncheckedUpdateManyWithoutEventInput>
+}
+
+export type CheckoutOrderCreateWithoutTicketsInput = {
+  id?: string
+  status?: $Enums.CheckoutOrderStatus
+  seatIds?: Prisma.CheckoutOrderCreateseatIdsInput | string[]
+  amountCents: number
+  currency?: string
+  stripeCheckoutSessionId?: string | null
+  stripePaymentIntentId?: string | null
+  fulfilledAt?: Date | string | null
+  refundedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutCheckoutOrdersInput
+  event: Prisma.EventCreateNestedOneWithoutCheckoutOrdersInput
+}
+
+export type CheckoutOrderUncheckedCreateWithoutTicketsInput = {
+  id?: string
+  userId: string
+  eventId: string
+  status?: $Enums.CheckoutOrderStatus
+  seatIds?: Prisma.CheckoutOrderCreateseatIdsInput | string[]
+  amountCents: number
+  currency?: string
+  stripeCheckoutSessionId?: string | null
+  stripePaymentIntentId?: string | null
+  fulfilledAt?: Date | string | null
+  refundedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type CheckoutOrderCreateOrConnectWithoutTicketsInput = {
+  where: Prisma.CheckoutOrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.CheckoutOrderCreateWithoutTicketsInput, Prisma.CheckoutOrderUncheckedCreateWithoutTicketsInput>
+}
+
+export type CheckoutOrderUpsertWithoutTicketsInput = {
+  update: Prisma.XOR<Prisma.CheckoutOrderUpdateWithoutTicketsInput, Prisma.CheckoutOrderUncheckedUpdateWithoutTicketsInput>
+  create: Prisma.XOR<Prisma.CheckoutOrderCreateWithoutTicketsInput, Prisma.CheckoutOrderUncheckedCreateWithoutTicketsInput>
+  where?: Prisma.CheckoutOrderWhereInput
+}
+
+export type CheckoutOrderUpdateToOneWithWhereWithoutTicketsInput = {
+  where?: Prisma.CheckoutOrderWhereInput
+  data: Prisma.XOR<Prisma.CheckoutOrderUpdateWithoutTicketsInput, Prisma.CheckoutOrderUncheckedUpdateWithoutTicketsInput>
+}
+
+export type CheckoutOrderUpdateWithoutTicketsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCheckoutOrderStatusFieldUpdateOperationsInput | $Enums.CheckoutOrderStatus
+  seatIds?: Prisma.CheckoutOrderUpdateseatIdsInput | string[]
+  amountCents?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fulfilledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutCheckoutOrdersNestedInput
+  event?: Prisma.EventUpdateOneRequiredWithoutCheckoutOrdersNestedInput
+}
+
+export type CheckoutOrderUncheckedUpdateWithoutTicketsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  eventId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCheckoutOrderStatusFieldUpdateOperationsInput | $Enums.CheckoutOrderStatus
+  seatIds?: Prisma.CheckoutOrderUpdateseatIdsInput | string[]
+  amountCents?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCheckoutSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fulfilledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CheckoutOrderCreateManyUserInput = {
@@ -793,6 +903,7 @@ export type CheckoutOrderUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   event?: Prisma.EventUpdateOneRequiredWithoutCheckoutOrdersNestedInput
+  tickets?: Prisma.TicketUpdateManyWithoutOrderNestedInput
 }
 
 export type CheckoutOrderUncheckedUpdateWithoutUserInput = {
@@ -808,6 +919,7 @@ export type CheckoutOrderUncheckedUpdateWithoutUserInput = {
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tickets?: Prisma.TicketUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type CheckoutOrderUncheckedUpdateManyWithoutUserInput = {
@@ -853,6 +965,7 @@ export type CheckoutOrderUpdateWithoutEventInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutCheckoutOrdersNestedInput
+  tickets?: Prisma.TicketUpdateManyWithoutOrderNestedInput
 }
 
 export type CheckoutOrderUncheckedUpdateWithoutEventInput = {
@@ -868,6 +981,7 @@ export type CheckoutOrderUncheckedUpdateWithoutEventInput = {
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tickets?: Prisma.TicketUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type CheckoutOrderUncheckedUpdateManyWithoutEventInput = {
@@ -886,6 +1000,35 @@ export type CheckoutOrderUncheckedUpdateManyWithoutEventInput = {
 }
 
 
+/**
+ * Count Type CheckoutOrderCountOutputType
+ */
+
+export type CheckoutOrderCountOutputType = {
+  tickets: number
+}
+
+export type CheckoutOrderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tickets?: boolean | CheckoutOrderCountOutputTypeCountTicketsArgs
+}
+
+/**
+ * CheckoutOrderCountOutputType without action
+ */
+export type CheckoutOrderCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CheckoutOrderCountOutputType
+   */
+  select?: Prisma.CheckoutOrderCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * CheckoutOrderCountOutputType without action
+ */
+export type CheckoutOrderCountOutputTypeCountTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TicketWhereInput
+}
+
 
 export type CheckoutOrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -903,6 +1046,8 @@ export type CheckoutOrderSelect<ExtArgs extends runtime.Types.Extensions.Interna
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
+  tickets?: boolean | Prisma.CheckoutOrder$ticketsArgs<ExtArgs>
+  _count?: boolean | Prisma.CheckoutOrderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["checkoutOrder"]>
 
 export type CheckoutOrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -961,6 +1106,8 @@ export type CheckoutOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalA
 export type CheckoutOrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
+  tickets?: boolean | Prisma.CheckoutOrder$ticketsArgs<ExtArgs>
+  _count?: boolean | Prisma.CheckoutOrderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CheckoutOrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -976,6 +1123,7 @@ export type $CheckoutOrderPayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     event: Prisma.$EventPayload<ExtArgs>
+    tickets: Prisma.$TicketPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1387,6 +1535,7 @@ export interface Prisma__CheckoutOrderClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   event<T extends Prisma.EventDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventDefaultArgs<ExtArgs>>): Prisma.Prisma__EventClient<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  tickets<T extends Prisma.CheckoutOrder$ticketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CheckoutOrder$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1827,6 +1976,30 @@ export type CheckoutOrderDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many CheckoutOrders to delete.
    */
   limit?: number
+}
+
+/**
+ * CheckoutOrder.tickets
+ */
+export type CheckoutOrder$ticketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Ticket
+   */
+  select?: Prisma.TicketSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Ticket
+   */
+  omit?: Prisma.TicketOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TicketInclude<ExtArgs> | null
+  where?: Prisma.TicketWhereInput
+  orderBy?: Prisma.TicketOrderByWithRelationInput | Prisma.TicketOrderByWithRelationInput[]
+  cursor?: Prisma.TicketWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TicketScalarFieldEnum | Prisma.TicketScalarFieldEnum[]
 }
 
 /**

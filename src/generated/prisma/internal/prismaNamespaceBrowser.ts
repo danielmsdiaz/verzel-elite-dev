@@ -54,7 +54,8 @@ export const ModelName = {
   User: 'User',
   Event: 'Event',
   EventSeat: 'EventSeat',
-  CheckoutOrder: 'CheckoutOrder'
+  CheckoutOrder: 'CheckoutOrder',
+  Ticket: 'Ticket'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -135,6 +136,22 @@ export const CheckoutOrderScalarFieldEnum = {
 } as const
 
 export type CheckoutOrderScalarFieldEnum = (typeof CheckoutOrderScalarFieldEnum)[keyof typeof CheckoutOrderScalarFieldEnum]
+
+
+export const TicketScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  shareToken: 'shareToken',
+  status: 'status',
+  orderId: 'orderId',
+  eventId: 'eventId',
+  seatId: 'seatId',
+  checkedInAt: 'checkedInAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TicketScalarFieldEnum = (typeof TicketScalarFieldEnum)[keyof typeof TicketScalarFieldEnum]
 
 
 export const SortOrder = {

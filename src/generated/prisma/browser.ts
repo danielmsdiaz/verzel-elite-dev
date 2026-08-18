@@ -37,3 +37,8 @@ export type EventSeat = Prisma.EventSeatModel
  * 
  */
 export type CheckoutOrder = Prisma.CheckoutOrderModel
+/**
+ * Model Ticket
+ * 
+ */
+export type Ticket = Prisma.TicketModel

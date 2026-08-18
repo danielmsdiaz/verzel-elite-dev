@@ -43,3 +43,12 @@ export const CheckoutOrderStatus = {
 } as const
 
 export type CheckoutOrderStatus = (typeof CheckoutOrderStatus)[keyof typeof CheckoutOrderStatus]
+
+
+export const TicketStatus = {
+  VALID: 'VALID',
+  USED: 'USED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type TicketStatus = (typeof TicketStatus)[keyof typeof TicketStatus]

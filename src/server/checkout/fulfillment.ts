@@ -1,5 +1,7 @@
 import "server-only";
 
+import { randomUUID } from "node:crypto";
+
 import type Stripe from "stripe";
 
 import { prisma } from "@/lib/prisma";
@@ -71,6 +73,16 @@ export async function fulfillCheckoutSession(
       if (seats.count !== order.seatIds.length) {
         throw new FulfillmentRejectedError();
       }
+
+      await tx.ticket.createMany({
+        data: order.seatIds.map((seatId) => ({
+          code: createTicketCode(),
+          shareToken: randomUUID(),
+          orderId,
+          eventId: order.eventId,
+          seatId,
+        })),
+      });
 
       await tx.checkoutOrder.update({
         where: { id: orderId },
@@ -155,3 +167,7 @@ function orderStatusToFulfillment(
 }
 
 class FulfillmentRejectedError extends Error {}
+
+function createTicketCode() {
+  return `TKT-${randomUUID().replaceAll("-", "").slice(0, 12).toUpperCase()}`;
+}
