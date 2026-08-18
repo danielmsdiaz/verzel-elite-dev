@@ -202,14 +202,14 @@ Durante o teste, deixe estes serviços ativos:
 
 ## Usuários de demonstração
 
-O comando `npx prisma db seed` cria os usuários abaixo. Todos usam a senha
-`Demo@123`.
+O comando `npx prisma db seed` cria os usuários abaixo, além de eventos e
+assentos de demonstração.
 
-| Perfil | E-mail | Área principal |
-| --- | --- | --- |
-| Cliente | `customer@example.com` | `/profile` |
-| Organizador | `organizer@example.com` | `/organizer` |
-| Portaria | `gatekeeper@example.com` | `/gatekeeper` |
+| Perfil | E-mail | Senha | Área principal |
+| --- | --- | --- | --- |
+| Cliente | `customer@example.com` | `Demo@123` | `/profile` |
+| Organizador | `organizer@example.com` | `Demo@123` | `/organizer` |
+| Portaria | `gatekeeper@example.com` | `Demo@123` | `/gatekeeper` |
 
 Novos cadastros feitos pela tela `/signup` recebem o perfil de cliente.
 
