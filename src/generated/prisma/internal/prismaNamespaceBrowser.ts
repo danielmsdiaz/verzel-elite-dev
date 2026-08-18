@@ -53,7 +53,8 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Event: 'Event',
-  EventSeat: 'EventSeat'
+  EventSeat: 'EventSeat',
+  CheckoutOrder: 'CheckoutOrder'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -115,6 +116,25 @@ export const EventSeatScalarFieldEnum = {
 } as const
 
 export type EventSeatScalarFieldEnum = (typeof EventSeatScalarFieldEnum)[keyof typeof EventSeatScalarFieldEnum]
+
+
+export const CheckoutOrderScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  eventId: 'eventId',
+  status: 'status',
+  seatIds: 'seatIds',
+  amountCents: 'amountCents',
+  currency: 'currency',
+  stripeCheckoutSessionId: 'stripeCheckoutSessionId',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  fulfilledAt: 'fulfilledAt',
+  refundedAt: 'refundedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CheckoutOrderScalarFieldEnum = (typeof CheckoutOrderScalarFieldEnum)[keyof typeof CheckoutOrderScalarFieldEnum]
 
 
 export const SortOrder = {

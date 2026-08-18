@@ -15,13 +15,16 @@ const createPrismaClient = () => {
 };
 
 const globalForPrisma = globalThis as typeof globalThis & {
-  prisma?: ReturnType<typeof createPrismaClient>;
+  prismaCheckoutOrders?: ReturnType<typeof createPrismaClient>;
 };
 
-export const prisma = globalForPrisma.prisma ?? createPrismaClient();
+// The versioned key prevents Next.js HMR from reusing a client generated from
+// an older schema after a migration adds or removes model delegates.
+export const prisma =
+  globalForPrisma.prismaCheckoutOrders ?? createPrismaClient();
 
 if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prisma;
+  globalForPrisma.prismaCheckoutOrders = prisma;
 }
 
 export default prisma;

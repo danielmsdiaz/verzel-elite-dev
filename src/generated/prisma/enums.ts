@@ -28,8 +28,18 @@ export type EventStatus = (typeof EventStatus)[keyof typeof EventStatus]
 
 export const SeatStatus = {
   AVAILABLE: 'AVAILABLE',
-  HELD: 'HELD',
-  SOLD: 'SOLD'
+  RESERVED: 'RESERVED'
 } as const
 
 export type SeatStatus = (typeof SeatStatus)[keyof typeof SeatStatus]
+
+
+export const CheckoutOrderStatus = {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  FULFILLED: 'FULFILLED',
+  REFUNDED: 'REFUNDED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type CheckoutOrderStatus = (typeof CheckoutOrderStatus)[keyof typeof CheckoutOrderStatus]

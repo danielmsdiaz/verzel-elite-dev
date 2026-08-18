@@ -1,4 +1,13 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+
 import { cn } from "@/lib/utils";
+import {
+  startCheckoutAction,
+  type StartCheckoutResult,
+} from "@/server/checkout/actions";
 import type { EventDetails } from "@/server/events/queries";
 
 import { SeatMap } from "./seat-map";
@@ -9,6 +18,46 @@ type SeatSelectionSectionProps = {
 };
 
 export function SeatSelectionSection({ event }: SeatSelectionSectionProps) {
+  const router = useRouter();
+  const [selectedSeatIds, setSelectedSeatIds] = useState<Set<string>>(
+    () => new Set(),
+  );
+  const [result, setResult] = useState<StartCheckoutResult | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const selectedSeats = event.seats.filter((seat) =>
+    selectedSeatIds.has(seat.id),
+  );
+
+  function toggleSeat(seatId: string) {
+    setResult(null);
+    setSelectedSeatIds((current) => {
+      const next = new Set(current);
+
+      if (next.has(seatId)) next.delete(seatId);
+      else if (next.size < 8) next.add(seatId);
+
+      return next;
+    });
+  }
+
+  function goToCheckout() {
+    startTransition(async () => {
+      const nextResult = await startCheckoutAction({
+        eventId: event.id,
+        seatIds: [...selectedSeatIds],
+      });
+
+      if (nextResult.status === "success" && nextResult.checkoutUrl) {
+        router.push(nextResult.checkoutUrl);
+        return;
+      }
+
+      setResult(nextResult);
+      setSelectedSeatIds(new Set());
+      router.refresh();
+    });
+  }
+
   return (
     <section
       id="assentos"
@@ -29,14 +78,24 @@ export function SeatSelectionSection({ event }: SeatSelectionSectionProps) {
 
         <div className="flex flex-wrap gap-4 text-xs font-medium">
           <Legend className="border-zinc-950 bg-white" label="Disponível" />
-          <Legend className="border-zinc-300 bg-zinc-200" label="Reservado" />
-          <Legend className="border-zinc-950 bg-zinc-950" label="Vendido" />
+          <Legend className="border-zinc-950 bg-zinc-950" label="Selecionado" />
+          <Legend className="border-zinc-400 bg-zinc-300" label="Reservado" />
         </div>
       </div>
 
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <SeatMap seats={event.seats} />
-        <SessionSummary event={event} />
+        <SeatMap
+          seats={event.seats}
+          selectedSeatIds={selectedSeatIds}
+          onSeatToggle={toggleSeat}
+        />
+        <SessionSummary
+          event={event}
+          selectedSeats={selectedSeats}
+          isPending={isPending}
+          result={result}
+          onCheckout={goToCheckout}
+        />
       </div>
     </section>
   );

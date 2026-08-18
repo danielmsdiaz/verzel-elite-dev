@@ -15,7 +15,7 @@ import {
   formatCurrency,
   formatEventDate,
   formatEventTime,
-} from "../_lib/event-formatters";
+} from "@/lib/formatters";
 
 type EventHeroProps = {
   event: EventDetails;

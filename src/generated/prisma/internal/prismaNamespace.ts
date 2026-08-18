@@ -399,7 +399,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Event: 'Event',
-  EventSeat: 'EventSeat'
+  EventSeat: 'EventSeat',
+  CheckoutOrder: 'CheckoutOrder'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -415,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "event" | "eventSeat"
+    modelProps: "user" | "event" | "eventSeat" | "checkoutOrder"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -641,6 +642,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CheckoutOrder: {
+      payload: Prisma.$CheckoutOrderPayload<ExtArgs>
+      fields: Prisma.CheckoutOrderFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CheckoutOrderFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckoutOrderPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CheckoutOrderFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckoutOrderPayload>
+        }
+        findFirst: {
+          args: Prisma.CheckoutOrderFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckoutOrderPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CheckoutOrderFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckoutOrderPayload>
+        }
+        findMany: {
+          args: Prisma.CheckoutOrderFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckoutOrderPayload>[]
+        }
+        create: {
+          args: Prisma.CheckoutOrderCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckoutOrderPayload>
+        }
+        createMany: {
+          args: Prisma.CheckoutOrderCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CheckoutOrderCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckoutOrderPayload>[]
+        }
+        delete: {
+          args: Prisma.CheckoutOrderDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckoutOrderPayload>
+        }
+        update: {
+          args: Prisma.CheckoutOrderUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckoutOrderPayload>
+        }
+        deleteMany: {
+          args: Prisma.CheckoutOrderDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CheckoutOrderUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CheckoutOrderUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckoutOrderPayload>[]
+        }
+        upsert: {
+          args: Prisma.CheckoutOrderUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckoutOrderPayload>
+        }
+        aggregate: {
+          args: Prisma.CheckoutOrderAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCheckoutOrder>
+        }
+        groupBy: {
+          args: Prisma.CheckoutOrderGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CheckoutOrderGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CheckoutOrderCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CheckoutOrderCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -723,6 +798,25 @@ export const EventSeatScalarFieldEnum = {
 } as const
 
 export type EventSeatScalarFieldEnum = (typeof EventSeatScalarFieldEnum)[keyof typeof EventSeatScalarFieldEnum]
+
+
+export const CheckoutOrderScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  eventId: 'eventId',
+  status: 'status',
+  seatIds: 'seatIds',
+  amountCents: 'amountCents',
+  currency: 'currency',
+  stripeCheckoutSessionId: 'stripeCheckoutSessionId',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  fulfilledAt: 'fulfilledAt',
+  refundedAt: 'refundedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CheckoutOrderScalarFieldEnum = (typeof CheckoutOrderScalarFieldEnum)[keyof typeof CheckoutOrderScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -836,6 +930,20 @@ export type EnumSeatStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Prism
  * Reference to a field of type 'SeatStatus[]'
  */
 export type ListEnumSeatStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SeatStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CheckoutOrderStatus'
+ */
+export type EnumCheckoutOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CheckoutOrderStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'CheckoutOrderStatus[]'
+ */
+export type ListEnumCheckoutOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CheckoutOrderStatus[]'>
     
 
 
@@ -1006,6 +1114,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   event?: Prisma.EventOmit
   eventSeat?: Prisma.EventSeatOmit
+  checkoutOrder?: Prisma.CheckoutOrderOmit
 }
 
 /* Types for Logging */

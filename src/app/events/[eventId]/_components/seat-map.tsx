@@ -5,9 +5,15 @@ type Seat = EventDetails["seats"][number];
 
 type SeatMapProps = {
   seats: Seat[];
+  selectedSeatIds: Set<string>;
+  onSeatToggle: (seatId: string) => void;
 };
 
-export function SeatMap({ seats }: SeatMapProps) {
+export function SeatMap({
+  seats,
+  selectedSeatIds,
+  onSeatToggle,
+}: SeatMapProps) {
   const seatsByRow = seats.reduce<Record<string, Seat[]>>((rows, seat) => {
     rows[seat.row] ??= [];
     rows[seat.row].push(seat);
@@ -32,22 +38,28 @@ export function SeatMap({ seats }: SeatMapProps) {
             <RowLabel row={row} />
             <div className="flex justify-center gap-2">
               {rowSeats.map((seat) => (
-                <span
+                <button
                   key={seat.id}
+                  type="button"
+                  disabled={seat.status === "RESERVED"}
+                  aria-pressed={selectedSeatIds.has(seat.id)}
                   title={`${seat.label} — ${seatStatusLabel(seat.status)}`}
                   aria-label={`${seat.label}, ${seatStatusLabel(seat.status)}`}
+                  onClick={() => onSeatToggle(seat.id)}
                   className={cn(
-                    "grid size-10 shrink-0 place-items-center rounded-t-[1rem] rounded-b-md border-2 text-[10px] font-bold transition-transform",
+                    "grid size-10 shrink-0 place-items-center rounded-t-[1rem] rounded-b-md border-2 text-[10px] font-bold transition",
                     seat.status === "AVAILABLE" &&
-                      "border-zinc-950 bg-white text-zinc-950 hover:-translate-y-1",
-                    seat.status === "HELD" &&
-                      "border-zinc-300 bg-zinc-200 text-zinc-500",
-                    seat.status === "SOLD" &&
-                      "border-zinc-950 bg-zinc-950 text-white line-through",
+                      !selectedSeatIds.has(seat.id) &&
+                      "border-zinc-950 bg-white text-zinc-950 hover:-translate-y-1 hover:bg-zinc-100",
+                    seat.status === "AVAILABLE" &&
+                      selectedSeatIds.has(seat.id) &&
+                      "-translate-y-1 border-zinc-950 bg-zinc-950 text-white shadow-[0_4px_0_#a1a1aa]",
+                    seat.status === "RESERVED" &&
+                      "cursor-not-allowed border-zinc-400 bg-zinc-300 text-zinc-600 line-through",
                   )}
                 >
                   {seat.number}
-                </span>
+                </button>
               ))}
             </div>
             <RowLabel row={row} />
@@ -67,8 +79,7 @@ function RowLabel({ row }: { row: string }) {
 function seatStatusLabel(status: Seat["status"]) {
   const labels = {
     AVAILABLE: "disponível",
-    HELD: "reservado",
-    SOLD: "vendido",
+    RESERVED: "reservado",
   } as const;
 
   return labels[status];

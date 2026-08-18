@@ -11,4 +11,5 @@
 export type * from './models/User'
 export type * from './models/Event'
 export type * from './models/EventSeat'
+export type * from './models/CheckoutOrder'
 export type * from './commonInputTypes'

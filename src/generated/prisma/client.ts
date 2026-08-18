@@ -56,3 +56,8 @@ export type Event = Prisma.EventModel
  * 
  */
 export type EventSeat = Prisma.EventSeatModel
+/**
+ * Model CheckoutOrder
+ * 
+ */
+export type CheckoutOrder = Prisma.CheckoutOrderModel
