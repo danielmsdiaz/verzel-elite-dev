@@ -44,8 +44,9 @@ model User {
   passwordHash String
   role         UserRole
 
-  events         Event[]
-  checkoutOrders CheckoutOrder[]
+  events            Event[]
+  checkoutOrders    CheckoutOrder[]
+  ticketValidations Ticket[]        @relation("TicketValidator")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -130,14 +131,17 @@ model Ticket {
   eventId String
   seatId  String
 
-  checkedInAt DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  checkedInAt   DateTime?
+  checkedInById String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
-  order CheckoutOrder @relation(fields: [orderId], references: [id])
-  event Event         @relation(fields: [eventId], references: [id])
-  seat  EventSeat     @relation(fields: [seatId], references: [id])
+  order       CheckoutOrder @relation(fields: [orderId], references: [id])
+  event       Event         @relation(fields: [eventId], references: [id])
+  seat        EventSeat     @relation(fields: [seatId], references: [id])
+  checkedInBy User?         @relation("TicketValidator", fields: [checkedInById], references: [id])
 
   @@unique([orderId, seatId])
   @@index([eventId, status])
+  @@index([checkedInById, checkedInAt])
 }

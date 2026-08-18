@@ -4,6 +4,7 @@ import {
   ChevronDown,
   LayoutDashboard,
   LogOut,
+  ScanLine,
   UserRound,
 } from "lucide-react";
 import Link from "next/link";
@@ -84,6 +85,14 @@ export function UserMenu({ name, email, role }: UserMenuProps) {
                 href="/organizer"
                 icon={LayoutDashboard}
                 label="Painel de eventos"
+                onClick={() => setIsOpen(false)}
+              />
+            ) : null}
+            {role === "GATEKEEPER" ? (
+              <MenuLink
+                href="/gatekeeper"
+                icon={ScanLine}
+                label="Portaria"
                 onClick={() => setIsOpen(false)}
               />
             ) : null}

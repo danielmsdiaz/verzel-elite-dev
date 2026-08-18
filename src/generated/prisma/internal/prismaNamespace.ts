@@ -903,6 +903,7 @@ export const TicketScalarFieldEnum = {
   eventId: 'eventId',
   seatId: 'seatId',
   checkedInAt: 'checkedInAt',
+  checkedInById: 'checkedInById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
