@@ -1,8 +1,9 @@
-import { ArrowUpRight, Clapperboard, LogOut } from "lucide-react";
+import { ArrowUpRight, Clapperboard } from "lucide-react";
 import Link from "next/link";
 
-import { logoutAction } from "@/server/auth/actions";
 import { getCurrentUser } from "@/server/auth/user";
+
+import { UserMenu } from "./user-menu";
 
 export async function SiteHeader() {
   const user = await getCurrentUser();
@@ -39,18 +40,7 @@ export async function SiteHeader() {
           </nav>
 
           {user ? (
-            <form action={logoutAction} className="flex items-center gap-3">
-              <span className="hidden text-sm font-semibold sm:inline">
-                Olá, {user.name.split(" ")[0]}
-              </span>
-              <button
-                type="submit"
-                className="group inline-flex h-10 items-center gap-2 rounded-full border-2 border-zinc-950 bg-white px-4 text-sm font-bold shadow-[3px_3px_0_#18181b] transition-transform hover:-translate-y-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
-              >
-                Sair
-                <LogOut aria-hidden="true" className="size-4" />
-              </button>
-            </form>
+            <UserMenu name={user.name} email={user.email} role={user.role} />
           ) : (
             <div className="flex items-center gap-3">
               <Link

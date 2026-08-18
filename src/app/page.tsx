@@ -30,9 +30,6 @@ export default async function Home() {
         </div>
 
         <div className="relative z-10 mx-auto flex min-h-[calc(100svh-72px)] w-full max-w-7xl flex-col items-center px-4 pt-14 text-center sm:px-6 sm:pt-18 lg:px-8">
-          <span className="mb-5 rounded-full border border-black/10 bg-white/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] backdrop-blur">
-            Sessões especiais
-          </span>
           <h1 className="max-w-3xl text-balance text-4xl font-semibold tracking-[-0.04em] sm:text-6xl lg:text-7xl">
             Cinema é melhor quando a sala está cheia.
           </h1>
